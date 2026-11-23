@@ -4,7 +4,7 @@ WORKDIR /app
 ARG NPM_CONFIG_REGISTRY=https://registry.npmjs.org
 ENV NPM_CONFIG_REGISTRY=${NPM_CONFIG_REGISTRY}
 COPY package.json package-lock.json* .npmrc ./
-RUN npm ci
+RUN npm config get registry && npm ci
 
 # ---------- Сборка ----------
 FROM node:22-alpine AS builder

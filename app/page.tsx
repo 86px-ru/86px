@@ -11,6 +11,8 @@ import Testimonials from '@/components/Testimonials';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 
+export const revalidate = 60;
+
 export default function Home() {
   return (
     <>

@@ -1613,6 +1613,359 @@ body.menu-open .mobile-menu {
   font-weight: 700;
 }
 
+.work-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+
+.work-card__link:hover .work-card__img {
+  transform: scale(1.06);
+}
+
+.work-card__visual.has-img::before {
+  content: none;
+}
+
+/* ---------- Админка ---------- */
+.admin {
+  padding: 140px 0 100px;
+  min-height: 100svh;
+}
+
+.admin__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.admin__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-top: 10px;
+}
+
+.admin__grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.admin-form {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 110px;
+}
+
+.admin-form__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+}
+
+.admin-form__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field__label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field__hint {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.field input[type='text'],
+.field input[type='password'],
+.field textarea,
+.field input[type='file'] {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 12px 14px;
+  transition: border-color 0.3s;
+}
+
+.field input[type='file'] {
+  padding: 9px 14px;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
+.admin-error {
+  font-size: 0.9rem;
+  color: #ff8585;
+}
+
+.btn--danger:hover {
+  border-color: #ff8585;
+  color: #ff8585;
+}
+
+.variant-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.variant-option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.variant-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.variant-thumb {
+  display: block;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  transition: border-color 0.25s, transform 0.25s var(--ease);
+  overflow: hidden;
+  position: relative;
+}
+
+.variant-option.active .variant-thumb {
+  border-color: var(--accent);
+}
+
+.variant-option:hover .variant-thumb {
+  transform: translateY(-2px);
+}
+
+.variant-option__name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.upload-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.upload-preview img {
+  width: 110px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+
+.upload-preview__remove {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.upload-preview__remove:hover {
+  color: #ff8585;
+  border-color: #ff8585;
+}
+
+.admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px 16px;
+  transition: border-color 0.3s;
+}
+
+.admin-item:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.admin-item.is-draft {
+  opacity: 0.55;
+}
+
+.admin-item__thumb {
+  width: 84px;
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  flex: none;
+  object-fit: cover;
+}
+
+.admin-item__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-item__body b {
+  font-size: 1rem;
+}
+
+.admin-item__desc,
+.admin-item__meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-item__actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* ---------- Страница входа ---------- */
+.login-page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 24px;
+}
+
+.login-page__logo {
+  font-size: 1.8rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 34px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login-card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.login-card__back {
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-align: center;
+  transition: color 0.3s;
+}
+
+.login-card__back:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 1024px) {
+  .admin__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-form {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-item {
+    flex-wrap: wrap;
+  }
+
+  .admin-item__actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
 /* ---------- Уменьшенная анимация ---------- */
 @media (prefers-reduced-motion: reduce) {  html {
     scroll-behavior: auto;

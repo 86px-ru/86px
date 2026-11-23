@@ -54,6 +54,48 @@ git push -u origin main
 После каждого `git push` в ветку `main` Coolify при включённом авто-деплое
 будет пересобирать и публиковать сайт автоматически.
 
+## Админка портфолио
+
+Сайт умеет показывать проекты из Supabase и редактировать их через `/admin`
+(вход по паролю, добавление/редактирование/удаление, загрузка обложек в Supabase Storage).
+Секция «Работы» обновляется без пересборки (кэш 60 с). Если Supabase недоступен —
+показываются встроенные проекты из кода.
+
+### Настройка (один раз)
+
+1. **Таблица в Supabase.** Откройте SQL Editor вашего проекта (bd.86px.ru) и выполните:
+
+```sql
+create table if not exists public.projects (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  description text not null default '',
+  tags text not null default '',
+  variant text not null default 'v1',
+  image_url text,
+  is_published boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
+alter table public.projects enable row level security;
+
+create policy "public read published" on public.projects
+  for select using (is_published = true);
+```
+
+2. **Переменные окружения** (в Coolify: приложение → Environment Variables):
+
+| Переменная | Где взять |
+| --- | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | уже есть (shared) — `https://bd.86px.ru` |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | уже есть (shared) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Settings → API → `service_role` key (**секрет**, только сервер) |
+| `ADMIN_PASSWORD` | придумайте пароль для входа в `/admin` |
+
+Бакет для обложек (`portfolio-covers`) создаётся автоматически при первой загрузке файла.
+
+3. **Redeploy**. Админка: `https://86px.ru/admin`.
+
 ## Структура
 
 ```

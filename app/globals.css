@@ -1418,6 +1418,23 @@ body.menu-open .mobile-menu {
   transform: translateY(-4px);
 }
 
+.footer__legal {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  padding-top: 22px;
+}
+
+.footer__legal a {
+  font-size: 0.85rem;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+
+.footer__legal a:hover {
+  color: var(--accent);
+}
+
 .footer__bottom {
   display: flex;
   justify-content: space-between;
@@ -1518,9 +1535,86 @@ body.menu-open .mobile-menu {
   }
 }
 
+/* ---------- Правовые страницы ---------- */
+.legal-page {
+  padding: clamp(140px, 18vw, 190px) 0 clamp(80px, 10vw, 130px);
+}
+
+.legal-page .container {
+  max-width: 880px;
+}
+
+.legal-page__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 4vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 18px 0 34px;
+}
+
+.legal-content {
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+.legal-content__updated {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-bottom: 30px;
+}
+
+.legal-content h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.08rem;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin: 40px 0 14px;
+}
+
+.legal-content p {
+  margin-bottom: 12px;
+}
+
+.legal-content ul,
+.legal-content ol {
+  padding-left: 22px;
+  margin: 0 0 14px;
+}
+
+.legal-content ul {
+  list-style: disc;
+}
+
+.legal-content ol {
+  list-style: decimal;
+}
+
+.legal-content li {
+  margin-bottom: 8px;
+}
+
+.legal-content li::marker {
+  color: var(--accent);
+}
+
+.legal-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal-content strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
 /* ---------- Уменьшенная анимация ---------- */
-@media (prefers-reduced-motion: reduce) {
-  html {
+@media (prefers-reduced-motion: reduce) {  html {
     scroll-behavior: auto;
   }
 

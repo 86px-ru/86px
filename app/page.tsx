@@ -1,5 +1,4 @@
 import Preloader from '@/components/Preloader';
-import CustomCursor from '@/components/CustomCursor';
 import RevealInit from '@/components/RevealInit';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
@@ -17,7 +16,6 @@ export default function Home() {
   return (
     <>
       <Preloader />
-      <CustomCursor />
       <RevealInit />
       <Header />
       <main>

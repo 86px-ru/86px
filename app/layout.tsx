@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Manrope, Unbounded } from 'next/font/google';
+import CustomCursor from '@/components/CustomCursor';
 import './globals.css';
 
 const manrope = Manrope({
@@ -29,6 +30,7 @@ export default function RootLayout({
     <html lang="ru">
       <body className={`${manrope.variable} ${unbounded.variable}`}>
         {children}
+        <CustomCursor />
         <div className="noise" aria-hidden="true" />
       </body>
     </html>

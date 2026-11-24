@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { isAdmin } from '@/lib/session';
 import { getServiceClient } from '@/lib/supabase';
 
@@ -45,5 +46,6 @@ export async function POST(req: Request) {
   }
   const { data, error } = await getServiceClient().from('projects').insert(project).select().single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  revalidatePath('/');
   return NextResponse.json(data, { status: 201 });
 }

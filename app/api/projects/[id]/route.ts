@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { isAdmin } from '@/lib/session';
 import { getServiceClient } from '@/lib/supabase';
 
@@ -33,6 +34,7 @@ export async function PATCH(req: Request, { params }: Params) {
     .select()
     .single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  revalidatePath('/');
   return NextResponse.json(data);
 }
 
@@ -43,5 +45,6 @@ export async function DELETE(_req: Request, { params }: Params) {
   const { id } = await params;
   const { error } = await getServiceClient().from('projects').delete().eq('id', id);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  revalidatePath('/');
   return NextResponse.json({ ok: true });
 }

@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 
+const PAUSE_AT = 86;
+const PAUSE_MS = 500;
+
 export default function Preloader() {
   const [progress, setProgress] = useState(0);
   const [done, setDone] = useState(false);
@@ -14,6 +17,8 @@ export default function Preloader() {
     let raf = 0;
     let timeout = 0;
     let start: number | null = null;
+    let pauseUntil: number | null = null;
+    let pausedAtP = 0;
 
     const finish = () => {
       document.body.classList.add('loaded');
@@ -24,7 +29,24 @@ export default function Preloader() {
 
     const step = (ts: number) => {
       if (start === null) start = ts;
-      const p = Math.min((ts - start) / duration, 1);
+
+      let p: number;
+      if (pauseUntil !== null && ts < pauseUntil) {
+        // Пауза на 86: замираем на полсекунды
+        p = pausedAtP;
+      } else {
+        if (pauseUntil !== null) pauseUntil = null;
+        p = Math.min((ts - start) / duration, 1);
+        if (!reduceMotion && p < 1) {
+          const value = Math.round((1 - Math.pow(1 - p, 3)) * 100);
+          if (value >= PAUSE_AT) {
+            pauseUntil = ts + PAUSE_MS;
+            pausedAtP = p;
+            p = pausedAtP;
+          }
+        }
+      }
+
       const eased = 1 - Math.pow(1 - p, 3);
       const value = Math.round(eased * 100);
       setProgress(value);
@@ -50,9 +72,11 @@ export default function Preloader() {
   return (
     <div className={`preloader${done ? ' done' : ''}`} aria-hidden="true">
       <div className="preloader__inner">
-        <div className={`preloader__big${progress >= 86 ? ' filled' : ''}`}>
-          86
-          <span className="preloader__pct">{progress}%</span>
+        <div className="preloader__logo">
+          86<span>px</span><sup>®</sup>
+        </div>
+        <div className={`preloader__count${progress === PAUSE_AT ? ' accent' : ''}`}>
+          {progress}%
         </div>
       </div>
       <div className="preloader__bar">

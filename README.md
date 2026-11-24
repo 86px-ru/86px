@@ -9,7 +9,7 @@
 - React 19
 - TypeScript
 - Чистый CSS (без UI-фреймворков)
-- Шрифты Unbounded и Manrope через `next/font` (самостоятельный хостинг, кириллица)
+- Шрифты Unbounded и Manrope — self-hosted в `public/fonts` (woff2, кириллица + латиница, сборка без обращений к Google Fonts)
 
 ## Локальная разработка
 

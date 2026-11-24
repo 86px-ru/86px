@@ -18,7 +18,10 @@ export default function Preloader() {
     let timeout = 0;
     let start: number | null = null;
     let pauseUntil: number | null = null;
+    let pauseStartTs = 0;
+    let pausedTotal = 0;
     let pausedAtP = 0;
+    let pauseDone = false;
 
     const finish = () => {
       document.body.classList.add('loaded');
@@ -35,12 +38,17 @@ export default function Preloader() {
         // Пауза на 86: замираем на полсекунды
         p = pausedAtP;
       } else {
-        if (pauseUntil !== null) pauseUntil = null;
-        p = Math.min((ts - start) / duration, 1);
-        if (!reduceMotion && p < 1) {
+        if (pauseUntil !== null) {
+          pausedTotal += pauseUntil - pauseStartTs;
+          pauseUntil = null;
+        }
+        p = Math.min((ts - start - pausedTotal) / duration, 1);
+        if (!reduceMotion && !pauseDone && p < 1) {
           const value = Math.round((1 - Math.pow(1 - p, 3)) * 100);
           if (value >= PAUSE_AT) {
+            pauseDone = true;
             pauseUntil = ts + PAUSE_MS;
+            pauseStartTs = ts;
             pausedAtP = p;
             p = pausedAtP;
           }

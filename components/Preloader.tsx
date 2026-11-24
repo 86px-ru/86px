@@ -50,10 +50,10 @@ export default function Preloader() {
   return (
     <div className={`preloader${done ? ' done' : ''}`} aria-hidden="true">
       <div className="preloader__inner">
-        <div className="preloader__logo">
-          86<span>px</span><sup>®</sup>
+        <div className={`preloader__big${progress >= 86 ? ' filled' : ''}`}>
+          86
+          <span className="preloader__pct">{progress}%</span>
         </div>
-        <div className="preloader__count">{progress}%</div>
       </div>
       <div className="preloader__bar">
         <span ref={barRef} />

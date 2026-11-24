@@ -1782,6 +1782,8 @@ body.menu-open .mobile-menu {
 
 .field input[type='text'],
 .field input[type='password'],
+.field input[type='number'],
+.field input[type='email'],
 .field textarea,
 .field input[type='file'] {
   width: 100%;
@@ -1917,6 +1919,133 @@ body.menu-open .mobile-menu {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+/* Вкладки админки */
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 34px;
+  flex-wrap: wrap;
+}
+
+.admin-tab {
+  padding: 11px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.3s, border-color 0.3s, background-color 0.3s;
+}
+
+.admin-tab:hover {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.admin-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0b0b0d;
+}
+
+/* Редактор контента */
+.content-editor {
+  max-width: 860px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.content-section {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px 28px;
+}
+
+.content-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.content-section__head h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+.content-section__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.content-section__saved {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.content-section__body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.content-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.content-sub:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.fields-grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.fields-grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.field input[type='color'] {
+  width: 100%;
+  height: 44px;
+  padding: 4px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .fields-grid,
+  .fields-grid--2,
+  .fields-grid--3 {
+    grid-template-columns: 1fr;
+  }
 }
 
 .admin-item {

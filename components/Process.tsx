@@ -1,27 +1,9 @@
-const steps = [
-  {
-    num: '01',
-    title: 'Исследование',
-    text: 'Изучаем рынок, конкурентов и аудиторию. Формулируем цели проекта и критерии успеха.',
-  },
-  {
-    num: '02',
-    title: 'Концепция',
-    text: 'Прорабатываем стратегию, структуру и визуальный образ будущего продукта.',
-  },
-  {
-    num: '03',
-    title: 'Дизайн и разработка',
-    text: 'Создаём интерфейсы, пишем код, добавляем анимации — всё в тесной связке друг с другом.',
-  },
-  {
-    num: '04',
-    title: 'Запуск и рост',
-    text: 'Тестируем, запускаем, анализируем метрики и помогаем продукту развиваться дальше.',
-  },
-];
+import { getContent } from '@/lib/content';
 
-export default function Process() {
+export default async function Process() {
+  const content = await getContent('process');
+  const steps = content.steps.slice(0, 4);
+
   return (
     <section className="section process" id="process">
       <div className="container">
@@ -32,8 +14,8 @@ export default function Process() {
 
         <div className="process__grid">
           {steps.map((step, index) => (
-            <div className="process-step" data-reveal data-delay={index * 100} key={step.num}>
-              <span className="process-step__num">{step.num}</span>
+            <div className="process-step" data-reveal data-delay={index * 100} key={index}>
+              <span className="process-step__num">{String(index + 1).padStart(2, '0')}</span>
               <h3>{step.title}</h3>
               <p>{step.text}</p>
             </div>

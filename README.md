@@ -81,6 +81,18 @@ alter table public.projects enable row level security;
 
 create policy "public read published" on public.projects
   for select using (is_published = true);
+
+-- Контент сайта (тексты всех секций)
+create table if not exists public.site_content (
+  key text primary key,
+  value jsonb not null,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.site_content enable row level security;
+
+create policy "public read site content" on public.site_content
+  for select using (true);
 ```
 
 2. **Переменные окружения** (в Coolify: приложение → Environment Variables):
@@ -94,7 +106,7 @@ create policy "public read published" on public.projects
 
 Бакет для обложек (`portfolio-covers`) создаётся автоматически при первой загрузке файла.
 
-3. **Redeploy**. Админка: `https://86px.ru/admin`.
+3. **Redeploy**. Админка: `https://86px.ru/admin` — вкладка «Портфолио» управляет проектами, «Контент сайта» — текстами всех секций (главный экран, услуги, процесс, отзывы, контакты). Если таблица пуста, на сайте показываются встроенные тексты.
 
 ## Структура
 

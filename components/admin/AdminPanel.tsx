@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
+import ContentEditor from '@/components/admin/ContentEditor';
 
 const VARIANTS = ['v1', 'v2', 'v3', 'v4', 'v5', 'v6'];
 
@@ -34,6 +35,7 @@ export default function AdminPanel() {
   const [uploading, setUploading] = useState(false);
   const [formError, setFormError] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
+  const [tab, setTab] = useState<'portfolio' | 'content'>('portfolio');
 
   async function load() {
     setLoading(true);
@@ -153,11 +155,29 @@ export default function AdminPanel() {
       <div className="admin__head">
         <div>
           <span className="section__label">Админка</span>
-          <h1 className="admin__title">Портфолио</h1>
+          <h1 className="admin__title">{tab === 'portfolio' ? 'Портфолио' : 'Контент сайта'}</h1>
         </div>
         <button className="btn btn--ghost btn--small" onClick={logout}>Выйти</button>
       </div>
 
+      <div className="admin-tabs">
+        <button
+          className={`admin-tab${tab === 'portfolio' ? ' active' : ''}`}
+          onClick={() => setTab('portfolio')}
+        >
+          Портфолио
+        </button>
+        <button
+          className={`admin-tab${tab === 'content' ? ' active' : ''}`}
+          onClick={() => setTab('content')}
+        >
+          Контент сайта
+        </button>
+      </div>
+
+      {tab === 'content' ? (
+        <ContentEditor />
+      ) : (
       <div className="admin__grid">
         <form className="admin-form" onSubmit={save}>
           <h2 className="admin-form__title">{editingId ? 'Редактировать проект' : 'Новый проект'}</h2>
@@ -299,6 +319,7 @@ export default function AdminPanel() {
           ))}
         </div>
       </div>
+      )}
     </>
   );
 }

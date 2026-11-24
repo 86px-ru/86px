@@ -898,69 +898,6 @@ body.menu-open .mobile-menu {
   color: #0b0b0d;
 }
 
-/* Плавающее превью услуг */
-.service-preview {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 300px;
-  height: 380px;
-  border-radius: 22px;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 500;
-  opacity: 0;
-  transition: opacity 0.35s var(--ease);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
-}
-
-.service-preview.is-visible {
-  opacity: 1;
-}
-
-.service-preview__item {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transform: scale(1.1);
-  transition: opacity 0.45s var(--ease), transform 0.7s var(--ease);
-}
-
-.service-preview__item.active {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.service-preview__item span {
-  position: absolute;
-  inset: 0;
-}
-
-.sp-1 { background: linear-gradient(150deg, #141419, #1d1d26); }
-.sp-1 span {
-  background:
-    radial-gradient(circle at 75% 25%, rgba(215, 255, 63, 0.85), transparent 42%),
-    radial-gradient(circle at 20% 85%, rgba(139, 123, 255, 0.6), transparent 50%);
-}
-.sp-2 { background: linear-gradient(150deg, #10161a, #142028); }
-.sp-2 span {
-  background:
-    repeating-linear-gradient(115deg, rgba(77, 214, 255, 0.28) 0 14px, transparent 14px 34px),
-    radial-gradient(circle at 30% 30%, rgba(139, 123, 255, 0.5), transparent 55%);
-}
-.sp-3 { background: linear-gradient(150deg, #181114, #241419); }
-.sp-3 span {
-  background:
-    radial-gradient(circle at 60% 60%, rgba(255, 122, 217, 0.6), transparent 50%),
-    conic-gradient(from 40deg at 40% 40%, rgba(215, 255, 63, 0.35), transparent 40%);
-}
-.sp-4 { background: linear-gradient(150deg, #0f1512, #15231a); }
-.sp-4 span {
-  background:
-    radial-gradient(circle at 50% 45%, rgba(215, 255, 63, 0.7), transparent 38%),
-    repeating-radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px 26px);
-}
-
 /* ---------- Работы ---------- */
 .works {
   background: var(--bg-2);

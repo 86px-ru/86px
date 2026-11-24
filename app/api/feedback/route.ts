@@ -63,10 +63,16 @@ export async function POST(req: Request) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chat_id: tgChat, text }),
+        signal: AbortSignal.timeout(10000),
       });
-      if (!res.ok) failures.push('telegram');
-    } catch {
-      failures.push('telegram');
+      if (!res.ok) {
+        const detail = (await res.text().catch(() => '')).slice(0, 200);
+        console.error('[feedback] telegram error:', res.status, detail);
+        failures.push(`telegram: HTTP ${res.status} ${detail}`);
+      }
+    } catch (e) {
+      console.error('[feedback] telegram exception:', e);
+      failures.push(`telegram: ${e instanceof Error ? e.message : 'network error'}`);
     }
   }
 
@@ -79,6 +85,9 @@ export async function POST(req: Request) {
         port,
         secure: port === 465,
         auth: { user, pass: process.env.SMTP_PASS as string },
+        connectionTimeout: 15000,
+        greetingTimeout: 15000,
+        socketTimeout: 20000,
       });
       await transporter.sendMail({
         from: `"Сайт 86px" <${user}>`,
@@ -87,15 +96,17 @@ export async function POST(req: Request) {
         text,
         replyTo: contact.includes('@') ? contact : undefined,
       });
-    } catch {
-      failures.push('email');
+    } catch (e) {
+      console.error('[feedback] smtp error:', e);
+      failures.push(`email: ${e instanceof Error ? e.message : 'send error'}`);
     }
   }
 
   const channels = (tgToken && tgChat ? 1 : 0) + (smtpConfigured ? 1 : 0);
   if (failures.length >= channels) {
+    console.error('[feedback] all channels failed:', failures.join(' | '));
     return NextResponse.json(
-      { error: 'Не удалось отправить заявку. Попробуйте позже или напишите на почту.' },
+      { error: `Не удалось отправить заявку (${failures.join('; ')}). Попробуйте позже или напишите на почту.` },
       { status: 502 }
     );
   }
